@@ -4,19 +4,47 @@ import os
 
 app = Flask(__name__)
 
+con = psycopg2.connect(
+host=os.environ["POSTGRES_HOST"],
+database=os.environ["POSTGRES_DATABASE"],
+user=os.environ["POSTGRES_USER"],
+password=os.environ["POSTGRES_PASSWORD"])
+
 @app.route('/')
 def home():
 	return render_template('login.html')
-	
-@app.route('/debug')
-def debug():
-	con = psycopg2.connect(
-    	host=os.environ["POSTGRES_HOST"],
-    	database=os.environ["POSTGRES_DATABASE"],
-    	user=os.environ["POSTGRES_USER"],
-    	password=os.environ["POSTGRES_PASSWORD"])
-	
+
+@app.route('/create')
+def create():
+	cur = con.cursor()
+	cur.execute(	"""	CREATE TABLE Users(
+				Username VARCHAR(20) NOT NULL PRIMARY KEY,
+				Password VARCHAR(20) NOT NULL
+					)
+			""")
+	con.commit()
+	return 'CREATE'
+
+@app.route('/tables')
+def tables():
 	cur = con.cursor()
 	cur.execute("SELECT * FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema';")
-	res = cur.fetchall()
+	rows = cur.fetchall()
 	return str(res)
+
+@app.route('/insert')
+def insert():
+	cur = con.cursor()
+	cur.execute(	"""	INSERT INTO Users (Username, Password)
+					VALUES ("Bob", "123")
+			""")
+	con.commit()
+	return 'INSERT'
+
+@app.route('/select')
+def select():
+	con = sqlite3.connect('login.db')
+	cur = con.cursor()
+	cur.execute("SELECT * FROM Users")
+	rows = cur.fetchall()
+	return str(rows)
