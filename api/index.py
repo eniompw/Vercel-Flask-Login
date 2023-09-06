@@ -9,4 +9,5 @@ def home():
 	
 @app.route('/debug')
 def debug():
-	return 'test'
+	url = os.environ["POSTGRES_URL"]
+	return url
