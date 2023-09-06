@@ -22,7 +22,7 @@ def create():
 		con.commit()
 		return 'CREATE'
 	except Exception as e:
-	return str(e)
+		return str(e)
 
 @app.route('/insert')
 def insert():
