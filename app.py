@@ -5,13 +5,13 @@ import os
 
 app = Flask(__name__)
 
-
 @app.route('/')
 def home():
 	return render_template('login.html')
 
 @app.route('/insert')
 def insert():
+	con = psycopg2.connect(**parse_dsn(os.environ["POSTGRES_URL"]))
 	cur = con.cursor()
 	cur.execute("INSERT INTO users VALUES ('Bob', '123')")
 	con.commit()
