@@ -4,12 +4,12 @@ import psycopg2
 from psycopg2.extensions import parse_dsn
 
 app = Flask(__name__)
-DATABASE_URL = os.environ['DATABASE_URL']
+POSTGRES_URL = os.environ['POSTGRES_URL']
 
 @app.route('/test')
 def test():
 	try:
-		con = psycopg2.connect(DATABASE_URL, sslmode='require')
+		con = psycopg2.connect(POSTGRES_URL, sslmode='require')
 		cur = con.cursor()
 		cur.execute("SELECT * FROM users")
 		rows = cur.fetchall()
