@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-conn_dict =  psycopg2.conninfo.conninfo_to_dict(os.environ["POSTGRES_URL"])
+#conn_dict =  psycopg2.conninfo.conninfo_to_dict(os.environ["POSTGRES_URL"])
 
 #con = psycopg2.connect(
 #host=os.environ["POSTGRES_HOST"],
