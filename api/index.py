@@ -9,4 +9,4 @@ def home():
 	
 @app.route('/debug')
 def debug():
-	return str(os.environ)
+	return 'test'
