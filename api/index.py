@@ -30,7 +30,7 @@ def tables():
 	cur = con.cursor()
 	cur.execute("SELECT * FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema';")
 	rows = cur.fetchall()
-	return str(res)
+	return str(rows)
 
 @app.route('/insert')
 def insert():
