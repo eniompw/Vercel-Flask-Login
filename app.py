@@ -20,7 +20,7 @@ def create():
 	cur.execute(	"""	CREATE TABLE users(
 				Username VARCHAR(20) NOT NULL PRIMARY KEY,
 				Password VARCHAR(20) NOT NULL
-					);
+					)
 			""")
 	con.commit()
 	return 'CREATE'
@@ -28,9 +28,7 @@ def create():
 @app.route('/insert')
 def insert():
 	cur = con.cursor()
-	cur.execute(	"""	INSERT INTO users (Username, Password)
-					VALUES ("Bob", "123");
-			""")
+	cur.execute("INSERT INTO users VALUES ('Bob', '123')")
 	con.commit()
 	con.close()
 	return 'INSERT'
