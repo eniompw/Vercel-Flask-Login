@@ -4,11 +4,12 @@ import os
 
 app = Flask(__name__)
 
-con = psycopg2.connect(
-host=os.environ["POSTGRES_HOST"],
-database=os.environ["POSTGRES_DATABASE"],
-user=os.environ["POSTGRES_USER"],
+
+host=os.environ["POSTGRES_HOST"]
+database=os.environ["POSTGRES_DATABASE"]
+user=os.environ["POSTGRES_USER"]
 password=os.environ["POSTGRES_PASSWORD"])
+con = psycopg2.connect()
 
 @app.route('/')
 def home():
