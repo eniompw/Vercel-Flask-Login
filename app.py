@@ -4,7 +4,7 @@ from psycopg2.extensions import parse_dsn
 import os
 
 app = Flask(__name__)
-con = psycopg2.connect(**parse_dsn(os.environ["POSTGRES_URL"]))
+
 
 @app.route('/')
 def home():
@@ -19,7 +19,9 @@ def insert():
 
 @app.route('/select')
 def select():
+	con = psycopg2.connect(**parse_dsn(os.environ["POSTGRES_URL"]))
 	cur = con.cursor()
 	cur.execute("SELECT * FROM users")
 	rows = cur.fetchall()
+	con.close()
 	return str(rows)
