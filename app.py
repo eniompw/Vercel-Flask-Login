@@ -11,15 +11,18 @@ def home():
 
 @app.route('/create')
 def create():
-	con = psycopg2.connect(**parse_dsn(os.environ["POSTGRES_URL"]))
-	cur = con.cursor()
-	cur.execute(	"""	CREATE TABLE Users(
-					Username VARCHAR(20) NOT NULL PRIMARY KEY,
-					Password VARCHAR(20) NOT NULL
-						  )
-			""")
-	con.commit()
-	return 'CREATE'
+	try:
+		con = psycopg2.connect(**parse_dsn(os.environ["POSTGRES_URL"]))
+		cur = con.cursor()
+		cur.execute(	"""	CREATE TABLE Users(
+						Username VARCHAR(20) NOT NULL PRIMARY KEY,
+						Password VARCHAR(20) NOT NULL
+							  )
+				""")
+		con.commit()
+		return 'CREATE'
+	except Exception as e:
+	return str(e)
 
 @app.route('/insert')
 def insert():
