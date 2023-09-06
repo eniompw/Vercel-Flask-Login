@@ -1,9 +1,19 @@
 from flask import Flask, render_template
+import os
 import psycopg2
 from psycopg2.extensions import parse_dsn
-import os
 
 app = Flask(__name__)
+DATABASE_URL = os.environ['DATABASE_URL']
+
+@app.route('/test')
+def test():
+	con = psycopg2.connect(DATABASE_URL, sslmode='require')
+	cur = con.cursor()
+	cur.execute("SELECT * FROM users")
+	rows = cur.fetchall()
+	con.close()
+	return str(rows)
 
 @app.route('/')
 def home():
