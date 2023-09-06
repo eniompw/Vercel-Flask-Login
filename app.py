@@ -4,6 +4,8 @@ import os
 
 app = Flask(__name__)
 
+conn_dict =  psycopg.conninfo.conninfo_to_dict(os.environ["POSTGRES_URL"])
+
 #con = psycopg2.connect(
 #host=os.environ["POSTGRES_HOST"],
 #database=os.environ["POSTGRES_DATABASE"],
@@ -16,7 +18,7 @@ def home():
 
 @app.route('/create')
 def create():
-	con = psycopg2.connect(	url=os.environ["POSTGRES_URL"])
+	con = psycopg2.connect(**conn_dict)
 	cur = con.cursor()
 	cur.execute(	"""	CREATE TABLE users(
 				Username VARCHAR(20) NOT NULL PRIMARY KEY,
