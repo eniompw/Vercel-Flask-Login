@@ -9,14 +9,14 @@ DATABASE_URL = os.environ['DATABASE_URL']
 @app.route('/test')
 def test():
 	try:
-	con = psycopg2.connect(DATABASE_URL, sslmode='require')
-	cur = con.cursor()
-	cur.execute("SELECT * FROM users")
-	rows = cur.fetchall()
-	con.close()
-	return str(rows)
-except Exception as e:
-	return str(e)
+		con = psycopg2.connect(DATABASE_URL, sslmode='require')
+		cur = con.cursor()
+		cur.execute("SELECT * FROM users")
+		rows = cur.fetchall()
+		con.close()
+		return str(rows)
+	except Exception as e:
+		return str(e)
 
 @app.route('/')
 def home():
