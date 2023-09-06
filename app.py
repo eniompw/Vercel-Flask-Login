@@ -26,11 +26,14 @@ def create():
 
 @app.route('/insert')
 def insert():
-	con = psycopg2.connect(**parse_dsn(os.environ["POSTGRES_URL"]))
-	cur = con.cursor()
-	cur.execute("INSERT INTO users VALUES ('Bob', '123')")
-	con.commit()
-	return 'INSERT'
+	try:
+		con = psycopg2.connect(**parse_dsn(os.environ["POSTGRES_URL"]))
+		cur = con.cursor()
+		cur.execute("INSERT INTO users VALUES ('Bob', '123')")
+		con.commit()
+		return 'INSERT'
+	except Exception as e:
+		return str(e)
 
 @app.route('/select')
 def select():
