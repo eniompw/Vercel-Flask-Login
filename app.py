@@ -1,15 +1,16 @@
 from flask import Flask, render_template
 import psycopg2
+from psycopg2.extensions import parse_dsn
 import os
 
 app = Flask(__name__)
 
 
-host=os.environ["POSTGRES_HOST"]
-database=os.environ["POSTGRES_DATABASE"]
-user=os.environ["POSTGRES_USER"]
-password=os.environ["POSTGRES_PASSWORD"])
-con = psycopg2.connect()
+#host=os.environ["POSTGRES_HOST"]
+#database=os.environ["POSTGRES_DATABASE"]
+#user=os.environ["POSTGRES_USER"]
+#password=os.environ["POSTGRES_PASSWORD"])
+#con = psycopg2.connect()
 
 @app.route('/')
 def home():
@@ -36,6 +37,7 @@ def insert():
 
 @app.route('/select')
 def select():
+	con = psycopg2.connect(**parse_dsn(os.environ["POSTGRES_URL"]))
 	cur = con.cursor()
 	cur.execute("SELECT * FROM users")
 	rows = cur.fetchall()
