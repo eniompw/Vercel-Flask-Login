@@ -47,3 +47,7 @@ def select():
 	cur.execute("SELECT * FROM users")
 	rows = cur.fetchall()
 	return str(rows)
+
+@app.route('/rollback')
+def rollback():
+	con.rollback()
