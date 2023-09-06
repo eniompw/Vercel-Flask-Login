@@ -9,6 +9,18 @@ app = Flask(__name__)
 def home():
 	return render_template('login.html')
 
+@app.route('/create')
+def create():
+	con = psycopg2.connect(**parse_dsn(os.environ["POSTGRES_URL"]))
+	cur = con.cursor()
+	cur.execute(	"""	CREATE TABLE Users(
+					Username VARCHAR(20) NOT NULL PRIMARY KEY,
+					Password VARCHAR(20) NOT NULL
+						  )
+			""")
+	con.commit()
+	return 'CREATE'
+
 @app.route('/insert')
 def insert():
 	con = psycopg2.connect(**parse_dsn(os.environ["POSTGRES_URL"]))
