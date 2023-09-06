@@ -17,10 +17,10 @@ def home():
 @app.route('/create')
 def create():
 	cur = con.cursor()
-	cur.execute(	"""	CREATE TABLE Users(
+	cur.execute(	"""	CREATE TABLE users(
 				Username VARCHAR(20) NOT NULL PRIMARY KEY,
 				Password VARCHAR(20) NOT NULL
-					)
+					);
 			""")
 	con.commit()
 	return 'CREATE'
@@ -35,8 +35,8 @@ def tables():
 @app.route('/insert')
 def insert():
 	cur = con.cursor()
-	cur.execute(	"""	INSERT INTO Users (Username, Password)
-					VALUES ("Bob", "123")
+	cur.execute(	"""	INSERT INTO users (Username, Password)
+					VALUES ("Bob", "123");
 			""")
 	con.commit()
 	return 'INSERT'
@@ -44,6 +44,6 @@ def insert():
 @app.route('/select')
 def select():
 	cur = con.cursor()
-	cur.execute("SELECT * FROM Users")
+	cur.execute("SELECT * FROM users")
 	rows = cur.fetchall()
 	return str(rows)
