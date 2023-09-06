@@ -51,3 +51,4 @@ def select():
 @app.route('/rollback')
 def rollback():
 	con.rollback()
+	return 'rollback'
