@@ -31,9 +31,12 @@ def insert():
 
 @app.route('/select')
 def select():
-	con = psycopg2.connect(**parse_dsn(os.environ["POSTGRES_URL"]))
-	cur = con.cursor()
-	cur.execute("SELECT * FROM users")
-	rows = cur.fetchall()
-	con.close()
-	return str(rows)
+	try:
+		con = psycopg2.connect(**parse_dsn(os.environ["POSTGRES_URL"]))
+		cur = con.cursor()
+		cur.execute("SELECT * FROM users")
+		rows = cur.fetchall()
+		con.close()
+		return str(rows)
+	except Exception as e:
+		return str(e)
